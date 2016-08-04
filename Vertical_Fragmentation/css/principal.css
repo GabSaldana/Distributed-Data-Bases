@@ -1,0 +1,86 @@
+
+
+.Dom{
+    
+    background-color: #F81E60;
+    color: white;
+    padding: 30px 20px 30px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.NoFrag{
+    
+    background-color:  #FFEB3B;
+    color: #37474F;
+    padding: 30px 20px 30px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.Exp{
+    
+    background-color: #2E8C4F;
+    padding: 30px 20px 30px 20px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#Enviar{
+    float:left;     
+}
+
+
+#Generar{
+    float:right;     
+}
+
+.trans{
+    
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 50px;
+    text-align: center;
+}
+
+.Att{
+    
+    background-color:#203757;
+    padding: 30px 20px 30px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    color: white;
+}
+
+.Frag{
+    
+    background-color: #2F8FAB ;
+    padding: 30px 20px 30px 20px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.btn-circle {
+  width: 80px;
+  height: 80px;
+  line-height: 20px; /* adjust line height to align vertically*/
+  padding:0px 6px 0px 0px;
+  text-align: center;
+  background-color: transparent;
+  font-size: 40px;
+  border-radius: 50%;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.3), 0 6px 6px rgba(0,0,0,0.20);
+    
+}
+
+
+input[type=checkbox] {
+  /* All browsers except webkit*/
+  transform: scale(2.5);
+
+  /* Webkit browsers*/
+  -webkit-transform: scale(2.5);
+}
+
+#relation,#number_site,#number_frag{
+    
+    font-size: 25px;
+    height: 50px;
+    
+}

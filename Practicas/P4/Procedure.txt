@@ -1,0 +1,134 @@
+www.dnfc.escom.ipn.mx
+
+show procedure status;//visualizar todos los procedure creados
+call();//invocar un procedure
+drop procedure___;//eliminar procedure
+
+//sintaxis
+delimiter __
+create procedure ____ ()
+begin
+ sentencias sql;
+end 
+delimiter __;
+
+Generar los siguientes sp para realizar:
+
+1*
+
+delimiter #
+create procedure s2()
+begin
+	SELECT COUNT(*) as TODOS_LOS_SOCIOS
+	FROM socio;
+	SELECT  s.socio as socio , c.nombre
+	FROM socio s, club c, socioclub sc
+	WHERE s.idsocio=sc.idsocio
+	AND sc.idclub=c.idclub
+	ORDER BY c.nombre, s.socio;
+end #
+delimiter ;
+call s1;
+drop procedure s1;
+a)Conocer el numero de registros que tienes de socios
+b)Mostrar el nombre completo de los socios e incluir nombre del samsclub donde estan registrados
+
+2*
+a)Mostrar el nombre del club y sus respectivos gerentes de los clubes existentes en el estado
+de Puebla.
+b)Mostrar el nombre del club y  gerentes que se apellidan Garcia de los clubes existentes en el estado
+de Puebla.
+
+
+delimiter /
+create procedure s3()
+begin
+	SELECT c.nombre , g.nombre
+	FROM club c, gerente g, estado e
+	WHERE c.idclub=g.idclub
+	AND c.idedo=e.idedo
+	AND e.nombre like "Puebl%"
+	ORDER BY c.nombre;
+	
+	SELECT c.nombre , g.nombre
+	FROM club c, gerente g, estado e
+	WHERE c.idclub=g.idclub
+	AND c.idedo=e.idedo
+	AND g.nombre like "Garc_a%"
+	AND e.nombre like "Puebl%"
+	ORDER BY c.nombre;
+	
+end /
+delimiter ;
+call s1;
+drop procedure s1;
+
+3*
+a)El nombre y prciounitario de los productos subministrados por sabritas.
+b)Mostrar el nombre de los productos subministrados en el club de HERMOSILLO
+
+
+delimiter &#
+create procedure s4()
+begin
+	SELECT p.nombre , p.preciounitario
+	FROM producto p, proveedor x
+	WHERE x.idproveedor=p.idproveedor 
+	AND p.nombre like "Sabritas%"
+	ORDER BY p.preciounitario;
+	
+	SELECT p.nombre 
+	FROM producto p, proveedor x, proveedorsams ps, club c
+	WHERE c.idclub=ps.idclub
+	AND ps.idproveedor= x.idproveedor
+	AND x.idproveedor= p.idproveedor
+	AND c.nombre like "Hermosi%"
+	ORDER BY p.nombre;	
+end &#
+
+4*
+a)Como se llaman los gerentes que estan asignados al cub Tijuana
+b)Mostrar el nombre de los socios que estan asignados a el club Tijuana
+
+delimiter &#
+create procedure s5()
+begin
+	SELECT g.nombre
+	FROM gerente g, club c
+	WHERE g.idclub=c.idclub
+	AND c.nombre like "Tijua%"
+	ORDER BY g.nombre;
+	
+	SELECT s.socio
+	FROM socio s, club c, socioclub x
+	WHERE s.idsocio=x.idsocio
+	AND x.idclub=c.idclub
+	AND c.nombre like "Tijua%"
+	ORDER BY s.nombre;	
+end &#
+
+5*
+a)Mostrar el nombre de los clubes y el numero de socios registrados en cada club
+b)Mostrar el nombre de los servicios que proporcionan los clubes existentes en el edo de 
+
+
+delimiter $
+create procedure s6()
+begin
+	SELECT c.nombre, count(s.nombre)
+	FROM socio s, club c, socioclub x
+	WHERE s.idsocio=x.idsocio
+	AND x.idclub=c.idclub
+	GROUP BY c.nombre
+	ORDER BY c.nombre;--108
+	
+	SELECT s.socio
+	FROM club c, servicio  s, servicioclub x, estado e
+	WHERE e.idedo=c.idedo
+	AND c.idclub=x.idclub
+	AND x.idservicio=s.idservicio
+	AND e.nombre like "Oaxac%"
+	ORDER BY c.nobre, s.nombre;--6	
+end $
+delimiter ;
+call s6;

@@ -1,0 +1,145 @@
+
+Usando mixup
+
+Crear los siguientes store procedures:
+
+1* Que muestre el nomre y preciounitario de los aticulos que pretenecen al depto DVDs.
+
+delimiter #
+create procedure s1()
+begin
+
+select a.nombre, a.precioUnitario
+from articulo a, departamento d
+where a.iddepto=d.iddepto
+and d.nombre="DVDs"
+order by a.precioUnitario;
+
+end #
+delimiter ;
+call s1();
+
+
+2* El nombre de los sociosque se apellidan hernandez y mostrar el nombrede la sucursal 
+donde fueron dados de alta.
+
+
+delimiter #
+create procedure s2()
+begin
+
+select m.nombre, s.nombre
+from mixup m, socio s, sociomix sm
+where s.idsocio=sm.idsocio
+and m.idmixup=sm.idmixup
+and (s.nombre like "%Hern_ndez%" or
+s.nombre like "Hern_ndez%")
+order by m.nombre, s.nombre;
+
+end #
+delimiter ;
+call s2();
+
+3*Mostrar l nombre completo de los acosiados que laboran en las sucursales ubicadas en
+ Guadalajara.
+
+delimiter #
+create procedure s3()
+begin
+
+select a.nombre
+from asociado a, mixup m
+where m.idmixup=a.idmixup
+and m.ubicacion="Guadalajara"
+order by a.nombre, m.nombre;
+
+end #
+delimiter ;
+call s3();
+
+
+4*Mostrar el nombre, direccion y tel de las sucursalesubicadas en el DF.
+
+
+delimiter #
+create procedure s4()
+begin
+	select m.nombre,m.ubicacion, m.tel
+	from mixup m
+	where m.ubicacion like "%DF%"
+	order by m.nombre;
+
+end #
+delimiter ;
+call s4();
+
+/***********FUNCIONES***********/
+
+Los parametros a pasar van dentro de los paretenssis del procedure:
+
+in nombreVariable, tipoDato(tamaño),
+in nombreVaraible2,tipoDato(tamaño)....
+in nombreVariablen, tipoDato(tamaño);
+
+5*Mostrar el nombre de la sucrusal de aquellos asociados que tienen un apellido deterimado.
+
+
+delimiter #
+create procedure s5(in ap varchar(40))
+begin
+
+select a.nombre, m.nombre
+from asociado a, mixup m
+where a.idmixup=m.idmixup
+and a.nombre like CONCAT("%",ap, "%")
+order by m.nombre, a.nombre;
+
+end #
+delimiter ; 
+call s5("Soto");
+
+
+6*Mostrar el nombre y precio unitario de aquellos productos que pertenecen a una categoria 
+determinada.
+
+
+delimiter #
+create procedure s9(in c varchar(60))
+begin
+
+select a.nombre, a.preciounitario, d.nombre
+from articulo a, departamento d
+where a.iddepto=d.iddepto
+and d.nombre= "Cds"
+order by a.preciounitario;
+
+end #
+delimiter ;
+call s9("Cds");
+
+7* Mostrar los datos correspondientes de aquellos socios que tienenn un identificadr determinado.
+
+delimiter #
+create procedure s7(in clave int)
+begin
+
+select * from socio
+where idsocio=clave;
+end #
+delimiter ;
+call s7(35);
+
+
+8*Con base en un codigo postal, mostrar el nombre de la sucursal y el nombre de los
+gerentes asignados a dicha sucursal.
+
+delimiter #
+create procedure s8(in cp int)
+begin
+
+select m.nombre, a.nombre
+from asociado a, mixup m
+where a.idmixup=m.idmixup
+and m.dir like CONCAT("%",cp, "%")
+order by m.nombre, a.nombre;
+end #

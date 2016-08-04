@@ -1,0 +1,238 @@
+
+show create procedure ;
+
+--1Dar de alta a un socio y asignarlo a un club determinado.
+call sams1(3005, "Gab", "Calle 2", "552102772", "Zacatecas");
+
+delimiter $
+
+create procedure sams1(
+	in id int, in n varchar(100), in d varchar(100),in t varchar(100), in nc varchar(100))
+
+begin
+
+select count(*) from socio;
+
+insert into socio
+values (id,n,d,t);
+
+insert into socioclub
+	
+values (id, (select idclub from club where nombre=nc));
+				
+--values (id, (select idclub from club where nombre like concat(nc, "%")));
+
+select count(*) from socio;
+
+select s.*,c.idclub,c.nombre 
+from socioclub sc, club c , socio s
+where s.idsocio=id
+and s.idsocio=sc.idsocio
+and  sc.idclub=c.idclub;
+
+end $;
+
+
+--2Dar de alta a un gerente y asignarlo a un club determinado.
+
+call sams2(3000,"Gabs","Zacatecas");
+
+delimiter $
+
+create procedure sams2(
+	in id int, in n varchar(100), in nc varchar(100))
+
+begin
+
+select count(*) from gerente;
+
+insert into gerente	
+values (id,n, (select idclub from club where nombre=nc));
+
+
+select count(*) from gerente;
+
+
+select g.*,c.idclub,c.nombre 
+from gerente g, club c 
+where g.idgerente=id
+and  g.idclub=c.idclub;
+
+end $;
+
+--3Modificar el teléfono de un club determinado.
+
+call sams3("Toluca","501616133");
+
+delimiter $
+
+create procedure sams3( in nc varchar(100), in t varchar(100))
+begin
+
+select nombre,tel from club where nombre=nc;
+
+update club
+set tel = t
+
+where nombre = nc;
+
+select nombre,tel from club where nombre=nc;
+
+end $;
+
+
+
+--4Modficar el 20% a los precios de los productos suministrados por un proveedor determinado.
+
+call sams4("Sabritas",20);
+
+delimiter $
+create procedure sams4(in np varchar(100), in pu int)
+
+begin
+select x.preciounitario
+from producto x, proveedor p
+where p.nombre=np
+and p.idproveedor=x.idproveedor;
+
+select idproveedor 
+from proveedor 
+where nombre=np;
+
+update producto
+set preciounitario= preciounitario + (preciounitario * (pu/100))
+where idproveedor = (select idproveedor from proveedor where nombre=np);
+
+select x.preciounitario
+from producto x, proveedor p
+where p.nombre=np
+and p.idproveedor=x.idproveedor;
+
+end $;
+
+--5Actualizar la dirección de un socio determinado.
+
+call sams5("Ricardo","Eduardo Molina");
+
+delimiter $
+
+create procedure sams5(in n varchar(100), in d varchar(100))
+begin
+
+select * from socio where nombre=n;
+
+select @idsoc:=idsocio from sociodir where nombre=n;
+
+update socio
+set direccion=d
+where idsocio=@idsoc;
+
+select * from socio where nombre=n;
+
+end ;$
+delimiter ;
+
+--6Actualizar el 15% al precio unitario de aquellos producto que son 
+
+suministrados a los clubes existentes en la CDMX (antes DF).
+
+call sams6(15);
+
+delimiter $
+
+create procedure sams6(in pu int)
+begin
+
+update producto
+set preciounitario=preciounitario + (preciounitario*(15/100))
+where idproveedor=
+in (select pr.idProveedor
+from estado e, club b, proveedor pr, proveedorsams ps
+where e.idEdo=b.idEdo and b.idClub=ps.idClub and ps.idProveedor=pr.idProveedor
+and e.nombre like "distrito%"); 
+
+end; $
+
+--7Para los socios que tienen un apellido determinado, actualizar su dirección 
+quedando "DOMICILIO CONOCIDO"
+
+call sams7("Vazquez","DOMICILIO CONOCIDO");
+
+delimiter $
+
+create procedure sams7(in ap varchar(100), in domi varchar(100))
+begin
+
+update socio
+set direccion=domi
+where  nombre like concat("%",ap,"%");;
+
+end;$
+
+--8Que permita dar de alta a un nuevo servicio.
+
+call sams8(11,"OTRO");
+delimiter $
+
+create procedure sams8(in id int, in servi varchar(100))
+begin
+
+insert into servicio
+values(id,servi);
+
+end ; $
+delimiter ;
+
+
+--9Cambiar el teléfono de un proveedor determinado.
+
+call sams9("Sabritas","55234678");
+delimiter $
+
+create procedure sams9(in prov varchar(100), in t varchar(100))
+begin
+
+select nombre, tel from proveedor where nombre like concat("%",prov,"%");
+
+update proveedor
+set tel=t
+where nombre like concat("%",prov,"%");
+
+select nombre, tel from proveedor where nombre like concat("%",prov,"%");
+
+end ; $
+
+--10Eliminar a los socios que tienen un apellido paterno determinado.
+
+call sams10("Reyes");
+delimiter $
+
+create procedure sams10(in ap varchar(100))
+begin
+
+select nombre from socio where nombre like concat("%",ap,"%");
+
+delete from socio
+where nombre like concat("%",ap,"%");
+
+select nombre from socio where nombre like concat("%",ap,"%");
+
+end ; $
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

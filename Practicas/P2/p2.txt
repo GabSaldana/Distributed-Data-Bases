@@ -1,0 +1,141 @@
+Practica 2
+
+
+source C:/Users/alumno/Desktop/elektra.sql
+
+
+1*Mostrar el nombre completo del cliente y su monto de credito
+
+SELECT c.nombre, c.apPaterno, c.apMaterno, cre.monto
+FROM cliente c, pago p, credito cre
+WHERE c.idcliente=p.idcliente
+AND p.idcredito=cre.idcredito
+ORDER BY c.appaterno, cre.monto;
+
+
+2*Mostrar el nombre del prodcucto , su marca y su precioUnitario de aquellos productos 
+que pertenecen a la categoria transporte.
+
+SELECT p.nombre, p.marca, p.precioUnitario
+FROM producto p, subcategoria sub, categoria c
+WHERE  p.idsubcategoria=sub.idsubcategoria
+AND sub.idcategoria=c.idcategoria
+AND c.nombre like "%transpo%"
+ORDER BY p.preciounitario;
+
+SELECT p.nombre, p.marca, p.precioUnitario
+FROM producto p, subcategoria sub, categoria c
+WHERE  p.idsubcategoria=sub.idsubcategoria
+AND sub.idcategoria=c.idcategoria
+AND c.nombre like "%Deport%"
+ORDER BY p.preciounitario;
+
+3*Mostrar los datos correspondientes de las sucursales existentes en el estado de colima
+
+SELECT * 
+FROM tienda
+WHERE estado="Colima"
+ORDER BY nombre;
+
+4*Que clientes hicieron pagos el dia 10 de marzo del 2010?
+Mostrar su nombre, apellido paterno y el monto de credito correspondiete.
+
+SELECT c.nombre, c.appaterno, cre.monto
+FROM pago p, cliente c, credito cre
+WHERE c.idcliente=p.idcliente
+AND p.idcredito=cre.idcredito
+AND p.fechapago like "%2010-03-10%"
+ORDER BY cre.monto, appaterno;
+
+5*Modificar la definicion de la relacion cliente para almacenar correos
+
+Hay que crear la relacion de correo para poder almacenar un atributo multivalor
+, PRIMERO ANTES DE BORRAR HAY QUE HACER UNA COPIA DE LOS CORREOS, la foreign key sera la de la tabla
+sobre la que estamos extrayendo finalmente se define la llave primaria como la FK union el atributo multi valor.
+
+A)
+
+CREATE table correo(
+idcliente int not null,
+email varchar(50) not null,
+primary key(idcliente,email),
+foreign key (idcliente) references cliente(idcliente)
+on delete cascade on update cascade
+);
+
+B) LLENAR DE DATOS LA RELACION
+
+INSERT INTO correo
+SELECT idcliente, email 
+FROM cliente
+WHERE EMAIL IS NOT NULL;
+
+C)ELIMINAR EL CAMPO EMAIL DE LA RELACION CLIENTE
+
+alter table CLIENTE DROP COLUMN EMAIL;
+
+6*Mostrar el nombre de la sucursal, asi como el estado en se ubican las sucursales que estan 
+en las sig cp... 20010,30470,23450
+
+SELECT nombre,estado
+FROM tienda
+WHERE cp in(2010,30470,23450);
+
+7*Mostrar el nomre de los productos, marca y subcategoria
+de aquellos productos que son suministrados en la sucursal ekt tecate
+
+SELECT p.nombre, p.marca, sub.nombre
+FROM producto p, subcategoria sub, tiendaproducto tp, tienda t
+WHERE t.idtienda=tp.idtienda
+AND tp.idproducto=p.idproducto
+AND p.idsubcategoria=sub.idsubcategoria
+AND  T.NOMBRE LIKE "%ekt tecate%"
+ORDER BY p.marca, p.nombre desc, sub.nombre; 
+
+REALIZAR LAS SIGUINETES MODIFICACIONES
+
+1* renombrar el campo nombre en la relacion producto y llmarle producto.
+
+
+ALTER TABLE producto 
+CHANGE COLUMN  nombre
+producto varchar(100);
+
+2*eliminar el sexo en cliente...
+
+ALTER TABLE cliente
+DROP COLUMN sexo;
+
+3*Agregar una relacion para almacenar infromacion de los empleados para las sucursales existentes
+asociar dicha relacion con tienda o sucursal
+
+empleado(idempleado PK, nombre, salario, email, edad,dir, idtienda Fk);
+
+CREATE TABLE empleado(
+	idempelado int not null primary key,
+	nombre varchar(80),
+	salario double,
+	email varchar(50),
+	edad int,
+	dir varchar(300),
+	idtienda int,
+	foreign key(idtienda) references tienda(idtienda)
+	on delete cascade on update cascade	
+);
+
+4*eliminar la asociacion existente entre la relacion pago y la relacion credito
+
+show create table pago;//ver los constraints
+
+ALTER TABLE pago DROP FOREIGN KEY
+pago_ibfk_1;
+
+5*Aumentar el unmero de caracterers sobre el campo descripcion en la relacion producto, almacenar 450 caracteres
+
+ALTER TABLE producto
+MODIFY COLUMN
+descripcion varchar(450);
+
+
+examen 
+FORMA NORMAL, DEPENDENCIAS TRANSITIVAS, FUNCIONALES, PARA QUE SIRVE NORMALIZAR , TODO SOBRE ER

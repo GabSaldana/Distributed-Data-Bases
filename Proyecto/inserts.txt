@@ -1,0 +1,109 @@
+INSERTS:
+
+source C:/Users/Gabriela/Documents/Escuela/3er nivel/Distributed DB/Proyecto/MultiPlataforma/farmapro_db.sql;
+
+Presentation:
+
+INSERT INTO `presentation` VALUES (null,'ml','300');
+
+INSERT INTO `presentation` VALUES (null,'gr','100');
+
+INSERT INTO `presentation` VALUES (null,'gr','50');
+
+Medicine_has_Presentation:
+
+INSERT INTO `medicine_has_presentation` VALUES (1,2);
+
+INSERT INTO `medicine_has_presentation` VALUES (2,3);
+INSERT INTO `medicine_has_presentation` VALUES (3,1);
+INSERT INTO `medicine_has_presentation` VALUES (5,3);
+INSERT INTO `medicine_has_presentation` VALUES (4,1);
+
+Medicine:
+
+INSERT INTO `medicine` VALUES (null,'Paracetamol',100);
+
+INSERT INTO `medicine` VALUES (null,'Nimesulida',300);
+
+INSERT INTO `medicine` VALUES (null,'Kaomycin',180);
+
+INSERT INTO `medicine` VALUES (null,'amikacina',58);
+
+INSERT INTO `medicine` VALUES (null,'senosian',80);
+
+INSERT INTO `medicine` VALUES (null,'Ipratropium',100);
+
+Medicine_has_Laboratory:
+
+INSERT INTO `medicine_has_laboratory` VALUES (1,5);
+INSERT INTO `medicine_has_laboratory` VALUES (3,3);
+INSERT INTO `medicine_has_laboratory` VALUES (2,6);
+INSERT INTO `medicine_has_laboratory` VALUES (4,4);
+
+Laboratory:
+
+INSERT INTO `laboratory` VALUES (null,'Pfizer, S.a. de C.v.','Mexico','01 55 5081 8500','pijfperij',5);
+
+INSERT INTO `laboratory` VALUES (null,'Bayer De México','CDMX','01 55 5736 1206','pwefjpe',3);
+
+INSERT INTO `laboratory` VALUES (null,'Chopo','Mexico, D.F.','01 55 5081 8500', 'Blvd. Miguel de Cervantes Saavedra 259',8);
+
+INSERT INTO `laboratory` VALUES (null,'ESCOM','Aguascalientes','5976234671','Av de los maestros',4);
+
+Laboratory_schedule:
+
+INSERT INTO `laboratory_schedule` VALUES ('09:30:00','21:00:00','L,M,R,J,V,S',2);
+INSERT INTO `laboratory_schedule` VALUES ('09:30:00','20:00:00','L,M,R,J,V,S',4);
+INSERT INTO `laboratory_schedule` VALUES ('07:00:00','15:30:00','L,M,R,J,V',3);
+INSERT INTO `laboratory_schedule` VALUES ('07:00:00','17:00:00','LMRJV',1);
+
+
+Pharmacy:
+
+INSERT INTO `pharmacy` VALUES (null,'San Pablo','Mexico, D.F.','pfrep','01 55 5736 1206');
+
+INSERT INTO `pharmacy` VALUES (null,'Similar','oshodsi','dpijw ','dijeprf ');
+
+INSERT INTO `pharmacy` VALUES (null,'Benavides','Mexico, D.F.','Av. Aquiles Serdán 358, Las Trancas, Tierra N','01 55 5736 1206');
+
+INSERT INTO `pharmacy` VALUES (null,'ESCOM','Estado de MÃ©xico','Prado Vallejo','50167452');
+
+Pharmacy_Schedule:
+
+INSERT INTO `pharmacy_schedule` VALUES ('08:00:00','16:30:00','L,M,R,J,V,S,D',1);
+INSERT INTO `pharmacy_schedule` VALUES ('07:00:00','19:49:00','L,M,R,J,V,S,D',3);
+INSERT INTO `pharmacy_schedule` VALUES ('07:00:00','16:30:00','L,M,R,J,V,S',2);
+INSERT INTO `pharmacy_schedule` VALUES ('03:39:00','15:00:00','LMRJVS',4);
+
+Pharmacy_has_Medicine:
+
+INSERT INTO `pharmacy_has_medicine` VALUES (3,1);
+
+INSERT INTO `pharmacy_has_medicine` VALUES (2,2);
+
+INSERT INTO `pharmacy_has_medicine` VALUES (1,3);
+
+INSERT INTO `pharmacy_has_medicine` VALUES (4,4);
+
+INSERT INTO `pharmacy_has_medicine` VALUES (3,5);
+
+INSERT INTO `pharmacy_has_medicine` VALUES (1,6);
+
+User:
+
+INSERT INTO `user` VALUES (null,'Gabs','Gabs','ela.ri.bag@gmail.com',1);
+
+INSERT INTO `user` VALUES (null,'Richi','Richi','digital.oxsgmail.com',2);
+
+INSERT INTO `user` VALUES (null,'Saul','Saul','asodihs',1);
+
+INSERT INTO `user` VALUES (null,'jair','jair','pipewosnc',2);
+
+INSERT INTO `user` VALUES (null,'Ivo','Ivo','ivo@hotmail.com',1);
+
+INSERT INTO `user` VALUES (null,'Gomy','Gomy','Gommy@outlook.com',2);
+
+INSERT INTO `user` VALUES (null,'Gabriela','Gabs','ela.ri.bag@gmail.com',1);
+
+INSERT INTO `user` VALUES (null,'Lab','lab','lab@gmail.com',2);
+

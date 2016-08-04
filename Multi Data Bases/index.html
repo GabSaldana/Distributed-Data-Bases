@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>DDB</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        
+        <div class="title">
+            <h1> Bienvenido!</h1>
+        </div>
+        
+        <div class="container">
+            
+            <section class="main row">
+                <article class="col-sm-8 col-md-9">
+                    <form action="Consultar.php" method="Post" >
+                        <h3>Proveedor:</h3><br>
+                        <h4>Id:<input type="text" name="id" placeholder="idProveedor"></h4>
+                        <input type="text" name="Calle" placeholder="Calle" style="display:none"></h4>
+                        <input type="text" name="Numero" placeholder="Numero de casa" style="display:none"></h4>
+                        <input type="text" name="Colonia" placeholder="Colonia" style="display:none"></h4>
+                        <input type="text" name="Telefono" placeholder="Telefono" style="display:none"></h4><br>
+                        <input type="submit"  name="Datos" value="Consultar"/><br>
+                    </form>
+                </article>
+            </section>
+            
+            <div class="row"> 
+                    <form action="Agregar.php" method="Post" >
+                        <h3>Agregar</h3><br>
+                        <h4>Numero de Proveedor: <input type="text" name="idProveedor" placeholder="idProveedor"></h4>
+                        <h4>Calle: <input type="text" name="Calle" placeholder="Calle"></h4>
+                        <h4>Numero: <input type="text" name="Numero" placeholder="Numero de casa"></h4>
+                        <h4>Colonia: <input type="text" name="Colonia" placeholder="Colonia"></h4>
+                        <h4>Telefono: <input type="text" name="Telefono" placeholder="Telefono"></h4><br>
+                        <input type="submit"  name="Proveedor" value="Agregar"/><br>
+                    </form>
+            </div>
+            
+            
+            <section class="main row"> 
+                    <form action="Eliminar.php" method="Post" >
+                        <h3>Eliminar</h3><br>
+                        <h4>Numero de Proveedor: <input type="text" name="idProveedor" placeholder="idProveedor"></h4>
+                        <h4 style="display:none">Calle: <input type="text" name="Calle" placeholder="Calle" style="display:none"></h4>
+                        <h4 style="display:none">Numero: <input type="text" name="Numero" placeholder="Numero de casa" style="display:none"></h4>
+                        <h4 style="display:none">Colonia: <input type="text" name="Colonia" placeholder="Colonia" style="display:none"></h4>
+                        <h4 style="display:none">Telefono: <input type="text" name="Telefono" placeholder="Telefono" style="display:none"></h4><br>
+                        <input type="submit"  name="Proveedor" value="Eliminar"/><br>
+                    </form>
+            </section>
+        </div>
+    
+    </body>
+</html>

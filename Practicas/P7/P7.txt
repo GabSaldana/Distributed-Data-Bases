@@ -1,0 +1,86 @@
+source  C:\Users\Gabriela\Documents\Escuela\3er nivel\Distributed DB\SQL's\home.sql
+
+
+1*Que permita agregar a un asociado y asignarlo a un club determinado.
+
+delimiter $
+
+create procedure h1(in id  varchar(100), in a varchar(100), in nh varchar(100))
+begin
+
+insert into asociado (idAsociado, homeDepot_idHD)
+values (id,a,(select idHD from homedepot where nombre like concat(nh,"%")));
+
+select * from asocaido
+where idAsociado=id;
+
+end; $
+delimiter ;
+
+call h1("5001","EULERCITOBB","Tampico");
+
+
+2*Modificar el nombre de un depto determinado
+
+delimiter $
+
+create procedure h2(in n varchar(100), in d varchar(100))
+begin
+
+select * from depto
+where nombre=n;
+
+update depto
+set nombre=d
+where nombre;
+
+select * from depto
+where nombre=d;
+
+end; $
+delimiter ;
+
+call h2("Herramientas","Herramientas pesadas");
+
+
+3*Cambiar el monto de credito de un usuario deterimnado a un porcentaje determinado
+
+delimiter $
+
+create procedure h3(in s varchar(100), in p varchar(100))
+begin
+
+select nombre,credito
+from socio
+where nombre like concat(s,"%");
+
+update socio set credito =credito + (credito *(p/100))
+where nombre like concat(s,"%")
+select nobre, credito from socio
+where nombre like concat(s,"%")
+
+end; $
+delimiter ;
+
+call h3("Zamora Solis");
+
+4*Cambiar la direccion de un socio determinado
+
+delimiter $
+
+create procedure h4(in s varchar(100), in p varchar(100))
+begin
+
+select nombre,credito
+from socio
+where nombre like concat(s,"%");
+
+update socio set credito =credito + (credito *(p/100));
+
+end; $
+delimiter ;
+
+5*Agregar una nueva sucursal
+
+
+6*Cambiar el telefono de un asociado determinado
